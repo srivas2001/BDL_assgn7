@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
+ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential libssl-dev libffi-dev libpq-dev && \
@@ -15,6 +15,7 @@ RUN apt-get update && \
 
 # Copy and install Python dependencies
 COPY requirements.txt /usr/src/app/
+COPY mnist_model2.h5 /app/
 RUN pip install --upgrade pip setuptools wheel && \
     pip install --no-cache-dir -r requirements.txt && \
     rm -rf /root/.cache/pip
